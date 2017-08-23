@@ -11,36 +11,15 @@
 
   <main>
     <div class="row">
-
-      <div class="col-sm-3">
         <div class="jumbotron">
-          <h1>Test</h1>
-          <p>Welcome to something</p>
+          <h3>Heroes</h3>
+          <% heroes.forEach(function(hero) { %>
+            <a class="hero" href='/<%= hero.name %>'><%= hero.name %></a>
+          <% }); %>
         </div>
-      </div>
-
-      <div class="col-sm-9">
-        <div class="well">
-          <h3>Testing testing</h3>
-        </div>
-      </div>
-
     </div>
 
   </main>
-
-<!-- 
-  <ul>
-    <% heroes.forEach(function(hero) { %>
-        <li><%= hero.name %></li>
-    <% }); %>
-  </ul> -->
-
-  <form action="/quotes" method="POST">
-    <input type="text" placeholder="name" name="name">
-    <input type="text" placeholder="quote" name="quote">
-    <button type="submit">Submit</button>
-  </form>
 
   <footer>
     <% include ../partials/footer %>

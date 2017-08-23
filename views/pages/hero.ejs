@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body class="container">
+
+    <header>
+      <% include ../partials/header %>
+    </header>
+
+    <main>
+          <div class="well">
+            <form action='/<%= selected.name %>' method="POST">
+              <div class="form-group">
+                <label>Name</label>
+                <input class="form-control" type="text" name="name" value="<%= selected.name %>">
+                <label>Icy</label>
+                <input class="form-control" type="text" value="<%= selected.icyUrl %>" name="icyUrl">
+                <label>Wiki</label>
+                <input class="form-control" type="text" value="<%= selected.wikiUrl %>" name="wikiUrl">
+                <label>WebM</label>
+                <input class="form-control" type="text" value="<%= selected.webm %>" name="webm">
+                <button class="btn btn-primary" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+
+      <div class="well">
+        <pre id="json"></pre>
+        <script>
+          var text = <%-JSON.stringify(selected) %>
+          document.getElementById("json").innerHTML = JSON.stringify(text, undefined, 2)
+        </script>
+      </div>
+    </main>
+
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+
+  </body>
+</html>
