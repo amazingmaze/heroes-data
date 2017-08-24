@@ -8,8 +8,8 @@
     <header>
       <% include ../partials/header %>
     </header>
-
-    <main>
+      <main>
+        <div class="row">
           <div class="well">
             <form action='/<%= selected.name %>' method="POST">
               <div class="form-group">
@@ -25,19 +25,23 @@
               </div>
             </form>
           </div>
+          <form action="/scrape/icy/<%= selected.name %>" method="POST">
+            <input type="hidden" value="<%= selected.icyUrl %>" name="icyUrl">
+            <button class="btn btn-default" type="submit">Scrape icy</button>
+          </form>
+          <div class="well">
+            <pre id="json"></pre>
+            <script>
+              var text = <%-JSON.stringify(selected) %>
+              document.getElementById("json").innerHTML = JSON.stringify(text, undefined, 2)
+            </script>
+          </div>
+        </div>
+      </main>
 
-      <div class="well">
-        <pre id="json"></pre>
-        <script>
-          var text = <%-JSON.stringify(selected) %>
-          document.getElementById("json").innerHTML = JSON.stringify(text, undefined, 2)
-        </script>
-      </div>
-    </main>
-
-    <footer>
-      <% include ../partials/footer %>
-    </footer>
+      <footer>
+        <% include ../partials/footer %>
+      </footer>
 
   </body>
 </html>

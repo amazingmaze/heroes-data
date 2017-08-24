@@ -4,10 +4,7 @@ var axios = require('axios');
 var lodash = require('lodash');
 var cheerio = require('cheerio');
 
-var scrapeIcyUrl = function(heroName) {
-  let icyUrl = heroUrls.filter( hero => {
-    return (hero.name === heroName);
-  })[0].icyUrl;
+var scrapeIcyUrl = function(heroName, icyUrl) {
   let responsePromise = axios.get(icyUrl)
     .then( response => {
       let html = response.data;

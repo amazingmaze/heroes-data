@@ -3,6 +3,7 @@ var router = express.Router();
 var scraper = require('../app/services/scraper');
 var axios = require('axios');
 var fs = require('fs');
+var Hero = require('../app/models/hero');
 
 // LOAD DATA INTO MEMORY
 var data = require('../data/heroes.json');
@@ -20,12 +21,6 @@ router.get('/heroes', function(req, res) {
   })
 });
 
-// TODO: Get images from icy-veins or other source
-router.get('/heroes/images', function(req, res) {
-
-});
-
-// TODO: Get builds from from icy-veins
 router.get('/heroes/icy-builds/:hero', function(req, res) {
   scraper.scrapeIcyBuilds(req.params.hero).then( value => {
     console.log(value);
@@ -83,7 +78,6 @@ router.get('/info/icy/:hero', function(req, res) {
   scrapeUrl.scrapeIcyUrl(req.params.hero).then(function(value){
     res.json(value);
   });
-
 });
 
 router.get('/info/wiki/:hero', function(req, res) {
@@ -93,5 +87,23 @@ router.get('/info/wiki/:hero', function(req, res) {
   });
 
 });
+
+// -------------------------------------------------
+router.post('/icy/:hero', (req, res) => {
+  // From body, get name and icyUrl
+  let hero = req.params.hero;
+  let icyUrl = req.body.icyUrl;
+  // Scrape icy using new url
+  let scrapeUrl = require('../app/services/scrapeUrl');
+  scrapeUrl.scrapeIcyUrl(hero, icyUrl).then( (result) => {
+    // Find and update hero with new icy builds
+    Hero.findOneAndUpdate({name: hero}, {icybuilds: result}, (err, hero) => {
+      if(err) console.log(err);
+      console.log(hero + " updated..");
+      res.redirect("/");
+    });
+  });
+});
+
 
 module.exports = router;

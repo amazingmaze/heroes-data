@@ -41,15 +41,15 @@ var loadJsonIntoDb = function() {
   });
 }
 
-// CRUD-methods
+// GET ALL HEROES
 app.get( '/', function(req, res) {
-  // Get all heroes from DB
   Hero.find({}, function(err, heroes) {
   if (err) throw err;
     res.render('pages/index.ejs', {heroes: heroes});
   });
 });
 
+// GET HERO
 app.get('/:hero', function(req, res) {
   // Get single hero from db
   Hero.find( { name: req.params.hero}, (err, hero) => {
@@ -58,19 +58,16 @@ app.get('/:hero', function(req, res) {
 
 });
 
-app.post( '/:hero', function(req, res) {
-  // Update hero in DB
+// UPDATE HERO
+app.post('/:hero', function(req, res) {
   Hero.findOneAndUpdate({ name: req.body.name },
-    { name: req.body.name,
-      icyUrl: req.body.icyUrl,
-      wikiUrl: req.body.wikiUrl,
-       webm: req.body.webm },
+    { name: req.body.name,icyUrl: req.body.icyUrl,wikiUrl: req.body.wikiUrl,webm: req.body.webm },
        function(err, hero) {
-  if (err) throw err;
-  // we have the updated user returned to us
-  console.log("Updated hero: ", req.body.name);
-  res.redirect("/");
-});
+    if (err) throw err;
+    // we have the updated user returned to us
+    console.log("Updated hero: ", req.body.name);
+    res.redirect("/");
+  });
 });
 
 //app.use('/api', router);

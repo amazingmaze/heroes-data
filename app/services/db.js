@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var database = {
   initialize(){
-    var uri = "mongodb://192.168.1.144:27017/heroes";
+    var uri = `mongodb://${config.DB_HOST}:${config.DB_PORT}/heroes`;
     mongoose.connect(uri);
     db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error'));
