@@ -45,13 +45,21 @@ app.get('/login', function(req, res, next) {
   res.render('pages/login')
 });
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 app.post('/login', function(req, res, next) {
   if(req.body.password === config.API_PASSWORD){
     req.session.authenticated = true;
     res.redirect('/');
   } else {
-    res.redirect('/login')
+    console.log("Wrong password, sleeping..");
+    sleep(1000).then( () => {
+      console.log(" .. awoke");
+      res.redirect('/login');
+    });
+
   }
 });
 
