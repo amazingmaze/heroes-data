@@ -2,14 +2,9 @@
 var express = require('express');
 var router = express.Router();
 var Hero = require('../app/models/hero');
-// LOAD DATA INTO MEMORY
-//var data = require('../data/heroes.json');
-//var heroNames = require('../data/heroes-info.json');
 
 /*** EXTERNAL API ROUTES **/
 router.get('/', function(req, res) {
-
-  // Get all heroes from DB
   Hero.find( {}, (err, heroes) => {
     if(err) console.log(err);
     res.json(heroes);

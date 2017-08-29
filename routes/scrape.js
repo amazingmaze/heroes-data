@@ -8,6 +8,7 @@ var Hero = require('../app/models/hero');
 // LOAD DATA INTO MEMORY
 var data = require('../data/heroes.json');
 var heroNames = require('../data/heroes-info.json');
+var heroesRaw = require('../data/heroes-raw.json');
 
 /*** INTERNAL AUTHORIZED (TODO). **/
 router.get('/heroes', function(req, res) {
@@ -105,5 +106,19 @@ router.post('/icy/:hero', (req, res) => {
   });
 });
 
+// Temporary
+var loadJsonIntoDb = function() {
+  var heroes = [];
+  data.forEach( (hero) => {
+    let h = hero[0];
+    h.icyUrl = heroesRaw.filter( hh => hh.name === h.name)[0].icyUrl;
+    h.wikiUrl = heroesRaw.filter( hh => hh.name === h.name)[0].wikiUrl;
+    heroes.push(Hero(h));
+  });
+  Hero.insertMany( heroes, function(err, results) {
+    if(err) throw err;
+    console.log("DATABASE: Success!");
+  });
+}
 
 module.exports = router;

@@ -8,16 +8,18 @@
   <header>
     <% include ../partials/header %>
   </header>
-  <% if(loggedIn) { %>
-    <a href="/logout">Log out </a>
-  <% } %>
+
   <main>
     <div class="row">
         <div class="jumbotron">
           <h3>Heroes</h3>
-          <% heroes.forEach(function(hero) { %>
-            <a class="hero" href='/<%= hero.name %>'><%= hero.name %></a>
-          <% }); %>
+          <form action='/login' method="POST">
+            <div class="form-group">
+              <label>Key</label>
+              <input class="form-control" type="text" name="password">
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+          </form>
         </div>
     </div>
 
