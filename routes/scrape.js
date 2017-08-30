@@ -4,11 +4,13 @@ var scraper = require('../app/services/scraper');
 var axios = require('axios');
 var fs = require('fs');
 var Hero = require('../app/models/hero');
-
+var counters = require('./counters/counters');
 // LOAD DATA INTO MEMORY
 var data = require('../data/heroes.json');
 var heroNames = require('../data/heroes-info.json');
 var heroesRaw = require('../data/heroes-raw.json');
+
+router.use('/counters', counters);
 
 /*** INTERNAL AUTHORIZED (TODO). **/
 router.get('/heroes', function(req, res) {

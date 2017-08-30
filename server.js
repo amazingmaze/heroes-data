@@ -77,7 +77,7 @@ app.get('/logout', function (req, res, next) {
       res.render('pages/index.ejs', {heroes: heroes, loggedIn: loggedIn });
     });
   });
-
+app.use('/scrape', scrape);
 app.use(checkAuth);
 
 // GET HERO
@@ -100,7 +100,7 @@ app.post('/:hero', function(req, res) {
   });
 });
 
-app.use('/scrape', scrape);
+
 
 app.listen(port, host);
 console.log('Magic happens on ' + host + ':' + port);
