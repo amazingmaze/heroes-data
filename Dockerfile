@@ -10,8 +10,6 @@ RUN npm install
 
 COPY . /src/app
 
-COPY /cfg/config.js /src/app/
-
 EXPOSE 1337
 
 CMD ["npm", "start"]

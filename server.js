@@ -15,7 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
-var port = process.env.PORT || 1337;        // set our port
+var port = process.env.PORT || 8181;        // set our port
+var host = process.argv[2] || '0.0.0.0';
 var router = express.Router();
 
 // Set view Engine
@@ -101,5 +102,5 @@ app.post('/:hero', function(req, res) {
 
 app.use('/scrape', scrape);
 
-app.listen(port);
-console.log('Magic happens on port ' + port);
+app.listen(port, host);
+console.log('Magic happens on ' + host + ':' + port);
