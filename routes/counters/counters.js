@@ -20,5 +20,25 @@ router.get('/with/:hero', function(req, res) {
   })
 });
 
-
+router.get('/:hero', function(req, res){
+  scraper.scrapeStrongAgainst(req.params.hero, 5)
+    .then( value => {
+    return { strong: value};
+  }).then(hero => {
+    scraper.scrapeWeakAgainst(req.params.hero, 5)
+    .then(value => {
+      hero.weak = value;
+      return hero;
+    })
+    .then(hero => {
+      scraper.scrapeGoodWith(req.params.hero, 5)
+      .then( value => {
+        hero.with = value;
+        return hero;
+      }).then( hero => {
+        res.json(hero);
+      });
+    })
+  })
+});
 module.exports = router;

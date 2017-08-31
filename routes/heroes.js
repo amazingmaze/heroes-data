@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var Hero = require('../app/models/hero');
+var counters = require('./counters/counters');
 
 /*** EXTERNAL API ROUTES **/
 router.get('/', function(req, res) {
@@ -24,5 +25,7 @@ router.get('/:hero', function(req, res) {
     res.json(hero);
   });
 });
+
+router.use('/counters', counters);
 
 module.exports = router;
